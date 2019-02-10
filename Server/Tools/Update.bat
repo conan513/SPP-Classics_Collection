@@ -1,7 +1,6 @@
 @echo off
 SET NAME=SingleCore_TC Updater
 TITLE %NAME%
-COLOR 0A
 set mainfolder=%CD%
 
 taskkill /f /im bnetserver.exe
