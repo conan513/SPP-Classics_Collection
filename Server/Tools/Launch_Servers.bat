@@ -4,6 +4,6 @@ TITLE %NAME%
 set mainfolder=%CD%
 
 :start_server
-cd "%mainfolder%\SPP-Classics_Collection"
+cd "%mainfolder%\SPP_Classics_Collection"
 Launcher.bat
 exit
