@@ -26,9 +26,9 @@ cd "%mainfolder%\Server\Tools"
 start cmdmp3win.exe launcher.mp3
 cls
 echo Starting the launcher...
-ping -n 4 127.0.0.1>nul
+ping -n 2 127.0.0.1>nul
 echo Get ready...
-ping -n 4 127.0.0.1>nul
+ping -n 2 127.0.0.1>nul
 cls
 echo Starting the launcher...
 echo Get ready...for something nostalgic...
@@ -53,10 +53,21 @@ ping -n 2 127.0.0.1>nul
 echo Ovahlord
 ping -n 3 127.0.0.1>nul
 cls
-echo Single Player Project
+echo List of the active Patrons
+echo --------------------------
 echo.
-echo This repack created by Conan
-ping -n 5 127.0.0.1>nul
+echo "BruteMao"          "Catsvil" 
+echo "Connor"            "Steve"
+echo "Cosmo Kramer"      "Daniel Jewell" 
+echo "Ed Leddy"          "Erik Peters" 
+echo "Jack Odom"         "Jeremy Helton"
+echo "Kralomax"          "Kring Vorot" 
+echo "Marius Damocles"   "Mover" 
+echo "Philip Weissig"    "Ryan"
+echo "Seth Deaton"
+echo.
+echo Thank you guys!
+ping -n 9 127.0.0.1>nul
 
 cd "%mainfolder%"
 goto select_expansion
