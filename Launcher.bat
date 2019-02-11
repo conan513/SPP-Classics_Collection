@@ -668,7 +668,7 @@ goto menu
 
 :account_tool
 cls
-echo Enter the following command into the worldserver window to create a normal account:
+echo Enter the following command into the "mangosd.exe" window to create a normal account:
 echo account create NAME PASSWORD
 echo.
 echo Create an administrator account:
