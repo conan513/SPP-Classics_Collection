@@ -37,5 +37,5 @@ CREATE TABLE `realmlist` (
 -- ----------------------------
 -- Records of realmlist
 -- ----------------------------
-INSERT INTO `realmlist` VALUES ('1', 'Single Player Project', '192.168.0.112', '8085', '1', '2', '1', '0', '0', '8606 ');
+INSERT INTO `realmlist` VALUES ('1', 'Single Player Project', '127.0.0.1', '8085', '1', '2', '1', '0', '0', '8606 ');
 SET FOREIGN_KEY_CHECKS=1;
