@@ -89,6 +89,7 @@ echo music > "%mainfolder%\music.on"
 goto beginning
 
 :select_expansion
+COLOR 0F
 if exist "%mainfolder%\music.on" set music=ON
 if exist "%mainfolder%\music.off" set music=OFF
 set module_check_vanilla=Not Installed
@@ -236,7 +237,7 @@ echo.
 pause
 start https://mega.nz/#F!t0IxWI6T!60djZitRwztErK2UAI1Y-A
 explorer "%mainfolder%\Modules"
-goto menu
+goto select_expansion
 
 :check_modules
 if not exist "%mainfolder%\Modules\%expansion%.7z" goto module_not_found
@@ -273,6 +274,10 @@ echo.
 echo Applying installing characters database...
 "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_characters.sql"
 "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_realmd.sql"
+"%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\characters.sql"
+"%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\realmd.sql"
+
+
 
 echo.
 echo Applying characters updates...
