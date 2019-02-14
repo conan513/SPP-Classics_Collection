@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS `cata_world`;
+
+CREATE DATABASE `cata_world` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;

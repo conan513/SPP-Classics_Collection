@@ -94,7 +94,7 @@ if exist "%mainfolder%\music.off" set music=OFF
 set module_check_vanilla=Not Installed
 set module_check_tbc=Not Installed
 set module_check_wotlk=Not available yet
-set module_check_cata=Not available yet
+set module_check_cata=Not Installed
 
 if exist "%mainfolder%\Modules\vanilla\dbc" set module_check_vanilla=Installed
 if exist "%mainfolder%\Modules\tbc\dbc" set module_check_tbc=Installed
@@ -132,6 +132,9 @@ set playerbot=vanilla_playerbot
 set world=vanilla_world
 set login=vanilla_realmd
 
+set realmserver=realmd.exe
+set worldserver=mangosd.exe
+
 set spp_update=vanilla_base
 
 goto settings
@@ -147,6 +150,9 @@ set playerbot=tbc_playerbot
 set world=tbc_world
 set login=tbc_realmd
 
+set realmserver=realmd.exe
+set worldserver=mangosd.exe
+
 set spp_update=tbc_base
 
 goto settings
@@ -161,6 +167,9 @@ set characters=wotlk_characters
 set playerbot=wotlk_playerbot
 set world=wotlk_world
 set login=wotlk_realmd
+
+set realmserver=authserver.exe
+set worldserver=worldserver.exe
 
 set spp_update=wotlk_base
 
@@ -182,16 +191,12 @@ set expansion=cata
 set characters=cata_characters
 set playerbot=cata_playerbot
 set world=cata_world
-set login=cata_realmd
+set login=cata_auth
+
+set realmserver=authserver.exe
+set worldserver=worldserver.exe
 
 set spp_update=cata_base
-
-cls
-echo This expansion does not included yet.
-echo Check back later.
-echo.
-pause
-goto beginning
 
 goto settings
 
@@ -202,9 +207,6 @@ set host=127.0.0.1
 set port=3310
 set user=root
 set pass=123456
-
-set realmserver=realmd.exe
-set worldserver=mangosd.exe
 
 REM --- Settings ---
 
@@ -218,13 +220,47 @@ IF NOT EXIST "%mainfolder%\autosave.on" (
 )
 
 start "" /min "%mainfolder%\Server\Database\start.bat"
-start "" /min "%mainfolder%\Server\Database_Playerbot\start.bat"
-
+if "%choose_exp%"=="1" (start "" /min "%mainfolder%\Server\Database_Playerbot\start.bat")
+if "%choose_exp%"=="2" (start "" /min "%mainfolder%\Server\Database_Playerbot\start.bat")
+if "%choose_exp%"=="3" echo.
+if "%choose_exp%"=="4" echo.
+ 
 if not exist "%mainfolder%\%spp_update%.spp" goto update_install
 goto menu
 
+:module_not_found
+cls
+echo The %expansion%.7z file is not in the "Modules" folder.
+echo Please download it and copy into the "%mainfolder%\Modules" folder.
+echo.
+pause
+start https://mega.nz/#F!t0IxWI6T!60djZitRwztErK2UAI1Y-A
+explorer "%mainfolder%\Modules"
+goto menu
+
+:check_modules
+if not exist "%mainfolder%\Modules\%expansion%.7z" goto module_not_found
+cd "%mainfolder%\Modules"
+mkdir %expansion%
+cd %expansion%
+"%mainfolder%\Server\Tools\7za.exe" e -y -spf "%mainfolder%\Modules\%expansion%.7z"
+del "%mainfolder%\Modules\%expansion%.7z"
+cd "%mainfolder%"
+goto update_install
+
+:extract_worlddb
+echo Extracting world database...
+echo.
+cd "%mainfolder%\sql\%expansion%"
+"%mainfolder%\Server\Tools\7za.exe" e -y -spf "%mainfolder%\sql\%expansion%\world.7z"
+cd "%mainfolder%"
+goto update_install
+
 :update_install
 cls
+if not exist "%mainfolder%\Modules\%expansion%\vmaps" goto check_modules
+if not exist "%mainfolder%\sql\%expansion%\world.sql" goto extract_worlddb
+
 echo.
 echo Database update required, please wait...
 echo.
@@ -233,6 +269,10 @@ echo Applying updated world database...
 echo.
 "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_world.sql"
 "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%world% < "%mainfolder%\sql\%expansion%\world.sql"
+echo.
+echo Applying installing characters database...
+"%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_characters.sql"
+"%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_realmd.sql"
 
 echo.
 echo Applying characters updates...
@@ -336,23 +376,17 @@ set /p current_ip=<"%mainfolder%\Server\Binaries\%expansion%\address.txt"
 cls
 echo Current address: %current_ip%
 echo.
-echo 1 - Change server address
-echo 2 - Back to main menu
-echo.
-set /P ip_menu=Enter a number: 
-if "%menu%"=="1" (goto setip)
-if "%menu%"=="2" (goto menu)
-if "%menu%"=="" (goto ip_changer)
-
-:setip
-cls
 set /P setip=Enter the new server address: 
 echo %setip%>"%mainfolder%\Server\Binaries\%expansion%\address.txt"
+if "%choose_exp%"=="1" set realmlist_address=REPLACE INTO `realmlist` VALUES ('1', 'Single Player Project', '%setip%', '8085', '1', '0', '1', '0', '0', '');
+if "%choose_exp%"=="2" set realmlist_address=REPLACE INTO `realmlist` VALUES ('1', 'Single Player Project', '%setip%', '8085', '1', '2', '1', '0', '0', '8606');
+if "%choose_exp%"=="3" goto setup_wotlk)
+if "%choose_exp%"=="4" set realmlist_address=REPLACE INTO `realmlist` VALUES ('1', 'Single Player Project', '%setip%', '127.0.0.1', '255.255.255.0', 8085, 1, 0, 1, 0, 0, 15595, 2, 1);
 echo.
 echo Saving the new address...
 echo.
 ping -n 2 127.0.0.1>nul
-"%mainfolder%\Server\tools\fart.exe"  -r -c -- "%mainfolder%\sql\%expansion%\realmlist.sql" %current_ip% %setip%
+echo %realmlist_address%>"%mainfolder%\sql\%expansion%\realmlist.sql"
 echo.
 echo Importing the new address into the database...
 echo.
