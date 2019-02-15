@@ -114,7 +114,7 @@ echo 4 - World of Warcraft: Cataclysm               [%module_check_cata%]
 echo.
 echo 0 - Intro/Music [%music%]
 echo.
-set /P choose_exp=What expension you want to play: 
+set /P choose_exp=What expansion you want to play: 
 if "%choose_exp%"=="1" (goto setup_vanilla)
 if "%choose_exp%"=="2" (goto setup_tbc)
 if "%choose_exp%"=="3" (goto setup_wotlk)
@@ -301,6 +301,19 @@ pause
 goto menu
 
 :menu
+if exist "%mainfolder%\autosave.on" set autosave=ON
+if exist "%mainfolder%\autosave.off" set autosave=OFF
+if not exist "%mainfolder%\Saves" mkdir "%mainfolder%\Saves"
+if not exist "%mainfolder%\Saves\%expansion%" mkdir "%mainfolder%\Saves\%expansion%"
+if not exist "%mainfolder%\Saves\%expansion%\1" mkdir "%mainfolder%\Saves\%expansion%\1"
+if not exist "%mainfolder%\Saves\%expansion%\2" mkdir "%mainfolder%\Saves\%expansion%\2"
+if not exist "%mainfolder%\Saves\%expansion%\3" mkdir "%mainfolder%\Saves\%expansion%\3"
+if not exist "%mainfolder%\Saves\%expansion%\4" mkdir "%mainfolder%\Saves\%expansion%\4"
+if not exist "%mainfolder%\Saves\%expansion%\5" mkdir "%mainfolder%\Saves\%expansion%\5"
+if not exist "%mainfolder%\Saves\%expansion%\6" mkdir "%mainfolder%\Saves\%expansion%\6"
+if not exist "%mainfolder%\Saves\%expansion%\7" mkdir "%mainfolder%\Saves\%expansion%\7"
+if not exist "%mainfolder%\Saves\%expansion%\8" mkdir "%mainfolder%\Saves\%expansion%\8"
+if not exist "%mainfolder%\Saves\%expansion%\9" mkdir "%mainfolder%\Saves\%expansion%\9"
 cls
 echo #######################################################
 echo # %NAME%
@@ -499,20 +512,6 @@ REM start Server\Tools\server_check.bat"
 goto menu
 
 :save_menu
-cls
-if exist "%mainfolder%\autosave.on" set autosave=ON
-if exist "%mainfolder%\autosave.off" set autosave=OFF
-if not exist "%mainfolder%\Saves" mkdir "%mainfolder%\Saves"
-if not exist "%mainfolder%\Saves\%expansion%" mkdir "%mainfolder%\Saves\%expansion%"
-if not exist "%mainfolder%\Saves\%expansion%\1" mkdir "%mainfolder%\Saves\%expansion%\1"
-if not exist "%mainfolder%\Saves\%expansion%\2" mkdir "%mainfolder%\Saves\%expansion%\2"
-if not exist "%mainfolder%\Saves\%expansion%\3" mkdir "%mainfolder%\Saves\%expansion%\3"
-if not exist "%mainfolder%\Saves\%expansion%\4" mkdir "%mainfolder%\Saves\%expansion%\4"
-if not exist "%mainfolder%\Saves\%expansion%\5" mkdir "%mainfolder%\Saves\%expansion%\5"
-if not exist "%mainfolder%\Saves\%expansion%\6" mkdir "%mainfolder%\Saves\%expansion%\6"
-if not exist "%mainfolder%\Saves\%expansion%\7" mkdir "%mainfolder%\Saves\%expansion%\7"
-if not exist "%mainfolder%\Saves\%expansion%\8" mkdir "%mainfolder%\Saves\%expansion%\8"
-if not exist "%mainfolder%\Saves\%expansion%\9" mkdir "%mainfolder%\Saves\%expansion%\9"
 cls
 echo.
 set customname1=Empty slot
