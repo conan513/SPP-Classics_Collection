@@ -28,43 +28,21 @@ cls
 echo Starting the launcher...
 ping -n 2 127.0.0.1>nul
 echo Get ready...
-ping -n 2 127.0.0.1>nul
+ping -n 3 127.0.0.1>nul
 cls
 echo Starting the launcher...
 echo Get ready...for something nostalgic...
 ping -n 3 127.0.0.1>nul
 cls
 echo CREDITS:
-echo --------
 echo.
-ping -n 2 127.0.0.1>nul
-echo MaNGOS
-ping -n 2 127.0.0.1>nul
-echo (C)ontinued MaNGOS
-ping -n 2 127.0.0.1>nul
-echo AzerothCore
-ping -n 2 127.0.0.1>nul
-echo TrinityCore
-ping -n 2 127.0.0.1>nul
-echo Ike3
-ping -n 2 127.0.0.1>nul
-echo Lidocain
-ping -n 2 127.0.0.1>nul
-echo Ovahlord
-ping -n 3 127.0.0.1>nul
+more "%mainfolder%\credits.txt"
+ping -n 9 127.0.0.1>nul
 cls
 echo List of the active Patrons
 echo --------------------------
 echo.
-echo "BruteMao"          "Catsvil" 
-echo "Connor"            "Steve"
-echo "Cosmo Kramer"      "Daniel Jewell" 
-echo "Ed Leddy"          "Erik Peters" 
-echo "Jack Odom"         "Jeremy Helton"
-echo "Kralomax"          "Kring Vorot" 
-echo "Marius Damocles"   "Mover" 
-echo "Philip Weissig"    "Ryan"
-echo "Seth Deaton"
+more "%mainfolder%\patrons.txt"
 echo.
 echo Thank you guys!
 ping -n 9 127.0.0.1>nul
