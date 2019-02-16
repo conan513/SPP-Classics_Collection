@@ -313,7 +313,8 @@ echo 3 - Create game account
 echo 4 - Change server address
 echo 5 - Character save manager
 echo.
-echo 6 - Reset randombots (can fix boot crash)
+if "%choose_exp%"=="1" echo 6 - Reset randombots (can fix boot crash
+if "%choose_exp%"=="2" echo 6 - Reset randombots (can fix boot crash
 echo 7 - Wipe characters database
 echo.
 echo 0 - Shutdown all servers
@@ -324,7 +325,8 @@ if "%menu%"=="2" (goto quick_start_servers_x64)
 if "%menu%"=="3" (goto account_tool)
 if "%menu%"=="4" (goto ip_changer)
 if "%menu%"=="5" (goto save_menu)
-if "%menu%"=="6" (goto clear_bots)
+if "%choose_exp%"=="1" (if "%menu%"=="6" (goto clear_bots))
+if "%choose_exp%"=="2" (if "%menu%"=="6" (goto clear_bots))
 if "%menu%"=="7" (goto clear_characters)
 if "%menu%"=="0" (goto shutdown_servers)
 if "%menu%"=="" (goto menu)
