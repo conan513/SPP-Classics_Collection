@@ -1,0 +1,10 @@
+Teams:
+------
+"MaNGOS"           "(C)ontinued MaNGOS"
+"AzerothCore"      "TrinityCore"
+
+Persons:
+--------
+"Ike3"             "Lidocain"
+"LordPsyan"        "jokerlfm"
+"Ovahlord"
