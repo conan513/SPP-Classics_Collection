@@ -147,17 +147,10 @@ set playerbot=wotlk_playerbot
 set world=wotlk_world
 set login=wotlk_realmd
 
-set realmserver=authserver.exe
-set worldserver=worldserver.exe
+set realmserver=realmd.exe
+set worldserver=mangosd.exe
 
 set spp_update=wotlk_base
-
-cls
-echo This expansion does not included yet.
-echo Check back later.
-echo.
-pause
-goto beginning
 
 goto settings
 

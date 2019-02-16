@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS `wotlk_world`;
+
+CREATE DATABASE `wotlk_world` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
