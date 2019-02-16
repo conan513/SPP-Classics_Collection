@@ -72,7 +72,7 @@ if exist "%mainfolder%\music.on" set music=ON
 if exist "%mainfolder%\music.off" set music=OFF
 set module_check_vanilla=Not Installed
 set module_check_tbc=Not Installed
-set module_check_wotlk=Not available yet
+set module_check_wotlk=Not Installed
 set module_check_cata=Not Installed
 
 if exist "%mainfolder%\Modules\vanilla\dbc" set module_check_vanilla=Installed
