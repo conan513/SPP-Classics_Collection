@@ -7,4 +7,5 @@ Persons:
 --------
 "Ike3"             "Lidocain"
 "LordPsyan"        "jokerlfm"
-"Ovahlord"
+"Ovahlord"         "Talamortis"
+"Traesh"           "StygianTheBest"
