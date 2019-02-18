@@ -41,6 +41,10 @@ echo Downloading the latest %name% update...
 echo.
 ..\git\cmd\git.exe pull https://github.com/conan513/SPP-Classics_Collection.git %branch%
 echo.
+echo Update done!
+echo Please run Update_fix_if_error.bat if you see merge error above.
+echo.
+ping -n 5 127.0.0.1>nul
 cd "%mainfolder%"
 copy "%mainfolder%\%installpath%\Server\Tools\Update_fix_if_error.bat" . /Y
 copy "%mainfolder%\%installpath%\Server\Tools\Launch_Servers.bat" . /Y
