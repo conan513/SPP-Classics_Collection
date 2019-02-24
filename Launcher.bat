@@ -44,7 +44,9 @@ echo --------------------------
 echo.
 more "%mainfolder%\patrons.txt"
 echo.
-echo Thank you guys!
+echo ###################
+echo # Thank you guys! #
+echo ###################
 ping -n 9 127.0.0.1>nul
 
 cd "%mainfolder%"
@@ -115,6 +117,7 @@ set realmserver=realmd.exe
 set worldserver=mangosd.exe
 
 set spp_update=vanilla_base
+set world_update=vanilla_world_up1
 
 goto settings
 
@@ -133,6 +136,7 @@ set realmserver=realmd.exe
 set worldserver=mangosd.exe
 
 set spp_update=tbc_base
+set world_update=tbc_world_up1
 
 goto settings
 
@@ -145,7 +149,7 @@ set expansion=wotlk
 set characters=wotlk_characters
 set playerbot=wotlk_playerbot
 set world=wotlk_world
-set login=wotlk_realmd
+set login=wotlk_auth
 
 set realmserver=authserver.exe
 set worldserver=worldserver.exe
@@ -205,6 +209,7 @@ if "%choose_exp%"=="3" echo.
 if "%choose_exp%"=="4" echo.
  
 if not exist "%mainfolder%\%spp_update%.spp" goto update_install
+if not exist "%mainfolder%\%world_update%.spp" goto update_world
 goto menu
 
 :module_not_found
@@ -257,7 +262,6 @@ echo Applying installing characters database...
 if "%choose_exp%"=="1" "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database_Playerbot\connection.cnf" --default-character-set=utf8 --database=%playerbot% < "%mainfolder%\sql\%expansion%\drop_playerbot.sql"
 if "%choose_exp%"=="2" "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database_Playerbot\connection.cnf" --default-character-set=utf8 --database=%playerbot% < "%mainfolder%\sql\%expansion%\drop_playerbot.sql"
 
-
 echo.
 echo Applying characters updates...
 echo.
@@ -277,6 +281,34 @@ echo Delete the "%spp_update%" file in the server folder if you want to apply th
 echo.
 echo %spp_update% > "%mainfolder%\%spp_update%.spp"
 pause
+goto menu
+
+:update_world
+if "%choose_exp%"=="3" goto menu
+if "%choose_exp%"=="4" goto menu
+cls
+echo Extracting world database...
+echo.
+cd "%mainfolder%\sql\%expansion%"
+"%mainfolder%\Server\Tools\7za.exe" e -y -spf "%mainfolder%\sql\%expansion%\world.7z"
+cd "%mainfolder%"
+echo.
+echo Database update required, please wait...
+echo.
+ping -n 15 127.0.0.1>nul
+echo Applying updated world database...
+echo.
+"%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_world.sql"
+"%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%world% < "%mainfolder%\sql\%expansion%\world.sql"
+echo.
+echo.
+echo Applying world updates...
+echo.
+for %%i in ("%mainfolder%\sql\%expansion%\world\*sql") do if %%i neq "%mainfolder%\sql\%expansion%\world\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\*sql" echo %%i & "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%world% < %%i
+for %%i in ("%mainfolder%\sql\%expansion%\world\Instances\*sql") do if %%i neq "%mainfolder%\sql\%expansion%\world\Instances\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\Instances\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\Instances\*sql" echo %%i & "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%world% < %%i
+echo.
+echo %spp_update% > "%mainfolder%\%world_update%.spp"
+echo.
 goto menu
 
 :menu
