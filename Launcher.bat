@@ -117,7 +117,7 @@ set realmserver=realmd.exe
 set worldserver=mangosd.exe
 
 set spp_update=vanilla_base
-set world_update=vanilla_world_up1
+set world_update=vanilla_world_up2
 
 goto settings
 

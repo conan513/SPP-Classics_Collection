@@ -2,6 +2,7 @@ Teams:
 ------
 "MaNGOS"           "(C)ontinued MaNGOS"
 "AzerothCore"      "TrinityCore"
+"WoWruRU Project"
 
 Persons:
 --------
