@@ -10,3 +10,5 @@ Persons:
 "LordPsyan"        "jokerlfm"
 "Ovahlord"         "Talamortis"
 "Traesh"           "StygianTheBest"
+"5man999"          "Wowx"
+"ainslievaux"
