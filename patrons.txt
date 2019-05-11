@@ -1,8 +1,8 @@
-"BruteMao"          "Carl Carlson" 
+"zaferzex"          "Carl Carlson" 
 "Cosmo Kramer"      "Daniel Jewell"
 "Ed Leddy"          "Erik Peters" 
 "Jack Odom"         "Jeremy Helton" 
-"Kring Vorot"       "Marius Damocles"
+"Kring Vorot"       "Steve"  
 "Mover"             "Philip Weissig" 
 "Ryan"              "Seth Deaton" 
-"Steve"    
+  

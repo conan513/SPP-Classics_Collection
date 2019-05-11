@@ -11,4 +11,5 @@ Persons:
 "Ovahlord"         "Talamortis"
 "Traesh"           "StygianTheBest"
 "5man999"          "Wowx"
-"ainslievaux"
+"ainslievaux"      "apock69"
+"Lillecarl"

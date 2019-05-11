@@ -36,13 +36,13 @@ ping -n 3 127.0.0.1>nul
 cls
 echo CREDITS:
 echo.
-more "%mainfolder%\credits.txt"
+more < "%mainfolder%\credits.txt"
 ping -n 9 127.0.0.1>nul
 cls
 echo List of the active Patrons
 echo --------------------------
 echo.
-more "%mainfolder%\patrons.txt"
+more < "%mainfolder%\patrons.txt"
 echo.
 echo ###################
 echo # Thank you guys! #
@@ -117,7 +117,7 @@ set realmserver=realmd.exe
 set worldserver=mangosd.exe
 
 set spp_update=vanilla_base
-set world_update=vanilla_world_up3
+set world_update=vanilla_world_up4
 
 goto settings
 
@@ -136,7 +136,7 @@ set realmserver=realmd.exe
 set worldserver=mangosd.exe
 
 set spp_update=tbc_base
-set world_update=tbc_world_up2
+set world_update=tbc_world_up3
 
 goto settings
 
@@ -216,6 +216,9 @@ goto menu
 cls
 echo The %expansion%.7z file is not in the "Modules" folder.
 echo Please download it and copy into the "%mainfolder%\Modules" folder.
+echo.
+echo Download link if not opening automatically:
+echo https://mega.nz/#F!t0IxWI6T!60djZitRwztErK2UAI1Y-A
 echo.
 pause
 start https://mega.nz/#F!t0IxWI6T!60djZitRwztErK2UAI1Y-A
