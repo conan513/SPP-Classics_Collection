@@ -13,7 +13,8 @@ if exist "%mainfolder%\Server\Database" goto beginning_part2
 cd "%mainfolder%\Server"
 "%mainfolder%\Server\Tools\7za.exe" e -y -spf Database.7z
 "%mainfolder%\Server\Tools\7za.exe" e -y -spf Database_Playerbot.7z
-goto beginning_part2
+cd "%mainfolder%"
+goto beginning
 
 :beginning_part2
 if exist "%mainfolder%\music.on" goto music_start
@@ -117,7 +118,7 @@ set realmserver=realmd.exe
 set worldserver=mangosd.exe
 
 set spp_update=vanilla_base
-set world_update=vanilla_world_up5
+set world_update=vanilla_world_up6
 
 goto settings
 
@@ -262,8 +263,8 @@ echo Applying installing characters database...
 "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_realmd.sql"
 "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%characters% < "%mainfolder%\sql\%expansion%\characters.sql"
 "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%login% < "%mainfolder%\sql\%expansion%\realmd.sql"
-if "%choose_exp%"=="1" "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database_Playerbot\connection.cnf" --default-character-set=utf8 --database=%playerbot% < "%mainfolder%\sql\%expansion%\drop_playerbot.sql"
-if "%choose_exp%"=="2" "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database_Playerbot\connection.cnf" --default-character-set=utf8 --database=%playerbot% < "%mainfolder%\sql\%expansion%\drop_playerbot.sql"
+if "%choose_exp%"=="1" "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database_Playerbot\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_playerbot.sql"
+if "%choose_exp%"=="2" "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database_Playerbot\connection.cnf" --default-character-set=utf8 < "%mainfolder%\sql\%expansion%\drop_playerbot.sql"
 
 echo.
 echo Applying characters updates...
@@ -284,7 +285,7 @@ echo Delete the "%spp_update%" file in the server folder if you want to apply th
 echo.
 echo %spp_update% > "%mainfolder%\%spp_update%.spp"
 pause
-goto menu
+goto start_database
 
 :update_world
 if "%choose_exp%"=="3" goto menu
@@ -315,7 +316,7 @@ for %%i in ("%mainfolder%\sql\%expansion%\world\Instances\*sql") do if %%i neq "
 echo.
 echo %spp_update% > "%mainfolder%\%world_update%.spp"
 echo.
-goto menu
+goto start_database
 
 :menu
 if exist "%mainfolder%\autosave.on" set autosave=ON
