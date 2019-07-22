@@ -90,16 +90,16 @@ echo #######################################################
 echo.
 echo 1 - World of Warcraft                          [%module_check_vanilla%]
 echo 2 - World of Warcraft: The Burning Crusade     [%module_check_tbc%]
-echo 3 - World of Warcraft: Wrath of the Lich King  [%module_check_wotlk%]
-echo 4 - World of Warcraft: Cataclysm               [%module_check_cata%]
+REM echo 3 - World of Warcraft: Wrath of the Lich King  [%module_check_wotlk%]
+REM echo 4 - World of Warcraft: Cataclysm               [%module_check_cata%]
 echo.
 echo 0 - Intro/Music [%music%]
 echo.
 set /P choose_exp=What expansion you want to play: 
 if "%choose_exp%"=="1" (goto setup_vanilla)
 if "%choose_exp%"=="2" (goto setup_tbc)
-if "%choose_exp%"=="3" (goto setup_wotlk)
-if "%choose_exp%"=="4" (goto setup_cata)
+REM if "%choose_exp%"=="3" (goto setup_wotlk)
+REM if "%choose_exp%"=="4" (goto setup_cata)
 if "%choose_exp%"=="0" (goto music_switch)
 if "%menu%"=="" (goto select_expansion)
 
@@ -137,7 +137,7 @@ set realmserver=realmd.exe
 set worldserver=mangosd.exe
 
 set spp_update=tbc_base
-set world_update=tbc_world_up4
+set world_update=tbc_world_up5
 
 goto settings
 
@@ -215,16 +215,22 @@ goto menu
 
 :module_not_found
 cls
-echo The %expansion%.7z file is not in the "Modules" folder.
-echo Please download it and copy into the "%mainfolder%\Modules" folder.
+echo The %expansion% module not in the "Modules" folder.
+echo Starting download in 10 seconds...
+ping -n 10 127.0.0.1>nul
 echo.
-echo Download link if not opening automatically:
-echo https://mega.nz/#F!t0IxWI6T!60djZitRwztErK2UAI1Y-A
-echo.
-pause
-start https://mega.nz/#F!t0IxWI6T!60djZitRwztErK2UAI1Y-A
-explorer "%mainfolder%\Modules"
-goto select_expansion
+if "%choose_exp%"=="1" goto install_module_vanilla
+if "%choose_exp%"=="2" goto install_module_tbc
+if "%choose_exp%"=="3" goto install_module_vanilla
+if "%choose_exp%"=="4" goto install_module_vanilla
+
+:install_module_vanilla
+"%mainfolder%\Server\Tools\wget.exe" -c ftp://164.68.103.31/Single_Player_Project/Repack/World_of_Warcraft/Classics_Collection/modules/vanilla.7z -P "%mainfolder%\Modules"
+goto check_modules
+
+:install_module_tbc
+"%mainfolder%\Server\Tools\wget.exe" -c ftp://164.68.103.31/Single_Player_Project/Repack/World_of_Warcraft/Classics_Collection/modules/tbc.7z -P "%mainfolder%\Modules"
+goto check_modules
 
 :check_modules
 if not exist "%mainfolder%\Modules\%expansion%.7z" goto module_not_found
@@ -232,7 +238,7 @@ cd "%mainfolder%\Modules"
 mkdir %expansion%
 cd %expansion%
 "%mainfolder%\Server\Tools\7za.exe" e -y -spf "%mainfolder%\Modules\%expansion%.7z"
-del "%mainfolder%\Modules\%expansion%.7z"
+rem del "%mainfolder%\Modules\%expansion%.7z"
 cd "%mainfolder%"
 goto update_install
 
@@ -278,13 +284,8 @@ echo Applying world updates...
 echo.
 for %%i in ("%mainfolder%\sql\%expansion%\world\*sql") do if %%i neq "%mainfolder%\sql\%expansion%\world\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\*sql" echo %%i & "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%world% < %%i
 for %%i in ("%mainfolder%\sql\%expansion%\world\Instances\*sql") do if %%i neq "%mainfolder%\sql\%expansion%\world\Instances\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\Instances\*sql" if %%i neq "%mainfolder%\sql\%expansion%\world\Instances\*sql" echo %%i & "%mainfolder%\Server\Database\bin\mysql.exe" --defaults-extra-file="%mainfolder%\Server\Database\connection.cnf" --default-character-set=utf8 --database=%world% < %%i
-
-echo.
-echo Make sure you don't see any error message above.
-echo Delete the "%spp_update%" file in the server folder if you want to apply this update again.
 echo.
 echo %spp_update% > "%mainfolder%\%spp_update%.spp"
-pause
 goto start_database
 
 :update_world
@@ -358,6 +359,7 @@ if "%choose_exp%"=="1" echo 6 - Reset randombots (can fix boot crash
 if "%choose_exp%"=="2" echo 6 - Reset randombots (can fix boot crash
 echo 7 - Wipe characters database
 echo.
+echo 8 - Back to expansion selector
 echo 0 - Shutdown all servers
 echo.
 set /P menu=Enter a number: 
@@ -369,6 +371,7 @@ if "%menu%"=="5" (goto save_menu)
 if "%choose_exp%"=="1" (if "%menu%"=="6" (goto clear_bots))
 if "%choose_exp%"=="2" (if "%menu%"=="6" (goto clear_bots))
 if "%menu%"=="7" (goto clear_characters)
+if "%menu%"=="8" (goto select_expansion)
 if "%menu%"=="0" (goto shutdown_servers)
 if "%menu%"=="" (goto menu)
 
@@ -422,7 +425,7 @@ echo Current address: %current_ip%
 echo.
 set /P setip=Enter the new server address: 
 echo %setip%>"%mainfolder%\Server\Binaries\%expansion%\address.txt"
-if "%choose_exp%"=="1" set realmlist_address=REPLACE INTO `realmlist` VALUES ('1', 'Single Player Project', '%setip%', '8085', '1', '0', '1', '0', '0', '');
+if "%choose_exp%"=="1" set realmlist_address=REPLACE INTO `realmlist` VALUES ('1', 'Single Player Project', '%setip%', '8085', '1', '0', '1', '0', '0', '5875 6005 6141 ');
 if "%choose_exp%"=="2" set realmlist_address=REPLACE INTO `realmlist` VALUES ('1', 'Single Player Project', '%setip%', '8085', '1', '2', '1', '0', '0', '8606');
 if "%choose_exp%"=="3" goto setup_wotlk)
 if "%choose_exp%"=="4" set realmlist_address=REPLACE INTO `realmlist` VALUES ('1', 'Single Player Project', '%setip%', '127.0.0.1', '255.255.255.0', 8085, 1, 0, 1, 0, 0, 15595, 2, 1);
