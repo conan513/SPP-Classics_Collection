@@ -1,3 +1,0 @@
-DROP DATABASE IF EXISTS `cata_auth`;
-
-CREATE DATABASE `cata_auth` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
